@@ -1,0 +1,16 @@
+  
+<html>
+<head>
+    {{ codemirror.include_codemirror() }}
+    
+  </head>
+  <body>
+    <form method="POST">
+      {{ form.source_code }}
+      {{form.submit}}
+      
+      <input type="submit" value="OK">
+    </form>
+    {{get_flashed_messages()[0]}}
+  </body>
+</html>

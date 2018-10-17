@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn">
+<head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <style>
+            .text-h1{
+                font-family: lobster;
+            }
+            .location{
+                padding-bottom: 20px;
+
+            }
+            b{
+                margin-top: 400px;
+            }
+        </style>
+       
+</head>
+<body class="text-center " style="background-color:lightsteelblue">
+    <div class="container-fluid col-sm-4 b">
+    <div class="location">   
+    <h1 class = "text-primary text-h1 text-center">MYSQL-CLIENT</h1> 
+    <form class="form-signin">
+        <div class="location">
+        <input type = "text"name="localhost" placeholder="input localhost" required=""class="form-control">
+        <input type = "text" name="user" placeholder="input user" required=""class="form-control">
+        <input type = "password"name="password" placeholder="input password"  required=""class="form-control">
+        <input type = "text" name="database" placeholder="input database"required="" class="form-control">
+        </div>
+        <button class ="btn btn-primary btn-block" id = "buttton-url" >connect to database</button>
+    </div> 
+    </div>
+</body>
+<html>    
