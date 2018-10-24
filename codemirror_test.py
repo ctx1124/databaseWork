@@ -1,11 +1,14 @@
 from flask_wtf import FlaskForm
 from flask_codemirror.fields import CodeMirrorField
+from wtforms import TextAreaField
 from wtforms.fields import SubmitField
 from flask_codemirror import CodeMirror
 from flask import Flask,render_template
 from flask import request,redirect, url_for,flash
 import pymysql
 from flask import current_app
+import traceback
+import sys
 
 SECRET_KEY = 'secret!'
 # mandatory
@@ -26,21 +29,42 @@ class MyForm(FlaskForm):
                                 config={'lineNumbers' : 'true'})
     submit = SubmitField('Submit')
 
+class MyForm2(FlaskForm):
+    output=TextAreaField('执行信息')
+
+
 @app.route('/', methods = ['GET', 'POST'])
 def index():
     form = MyForm()
-    ''''db = current_app.db
-    cursor = db.cursor()
-    cursor.execute("SELECT VERSION()")
-
-    data = cursor.fetchall()
-    flash("database connect sucess")
-    print(data)'''
+    form2 = MyForm2()
+    name = {}
+    data = {}
+    error = "connected success"
     if request.method=='POST':
         text = form.source_code.data
         print(text)
-        return render_template('index.html', form=form)
-    return render_template('index.html', form=form)
+        db = current_app.db
+        try:
+            cursor = db.cursor()
+            cursor.execute(text)
+            db.commit()
+            print(cursor.execute(text))
+            data = cursor.fetchall()
+            if(cursor.description):
+                name=cursor.description
+            #flash("database connect sucess")
+            #print(cursor.messages)
+            #print(data)
+            error="命令成功执行"
+            return render_template('index.html', form=form,name=name,data=data,error=error)
+        except:
+            db.rollback()
+            error= traceback.format_exc()
+            print(text)
+            #traceback.print_exc()
+            return render_template('index.html', form=form,name=name,data=data,error=error)
+
+    return render_template('index.html', form=form,name=name,data=data,error=error)
 
 @app.route('/connect', methods = ['POST', 'GET'])
 def connect():
