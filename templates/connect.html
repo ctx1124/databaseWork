@@ -1,0 +1,108 @@
+<html>
+<head>
+    {{ codemirror.include_codemirror() }}
+    
+    <style>
+    /* Table Head */
+    #table-7 thead th {
+    background-color: rgb(81, 130, 187);
+    color: #fff;
+    border-bottom-width: 0;
+    }
+
+    /* Column Style */
+    #table-7 td {
+    color: #000;
+    }
+    /* Heading and Column Style */
+    #table-7 tr, #table-7 th {
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(81, 130, 187);
+    }
+
+    /* Padding and font style */
+    #table-7 td, #table-7 th {
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+    font-weight: bold;
+    }
+    #left{
+      float: left;
+      width: 50%;
+    }
+    #right{
+      float: right;
+      width: 50%;
+    }
+    #both{
+      clear:both;
+    }
+    #bcakcolor{
+      background-color:#333;
+    }
+
+    .inline1{
+      display: inline-block;
+      width:40%;
+    
+    }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/mode/shell/shell.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.40.2/theme/dracula.css" rel="stylesheet">
+    
+    
+</head>
+  <body id="bcakcolor">
+    <div id="left">
+    <p style="color: white">输入查询语句</p>
+    <form method="POST" >
+      {{ form.source_code }}
+      {{form.submit}}
+      
+      <input type="submit" value="OK">
+    </form>
+    </div>
+    <div id="right">
+    <p style="color: white">输出信息</p>
+    <textarea name="code_textarea" id="code_textarea" cols="30" rows="10">{{error}}</textarea>
+    <script>
+      var editor2 = CodeMirror.fromTextArea(document.getElementById("code_textarea"),{
+         lineNumbers: true,
+         mode:"shell",
+         theme:"dracula"});
+    </script>
+    </div>   
+    <div id="both"></div>
+    <div>
+      <h2>查询结果</h2>
+    <div style="background-color:azure">
+    <table id ="table-7">
+      <thead>
+        
+        {% for field_name in name %}
+        <th>
+          {{field_name[0]}}
+        </th>
+        {% endfor %}
+        
+      </thead>
+      <tbody>
+        {% for data_member in data %}
+        <tr>
+        {% for data_m in data_member %}
+        <td>
+         {{data_m}}
+        </td>
+        {% endfor %}
+        </tr>
+        {% endfor %}
+      
+      </tbody>
+    </table>
+    </div>
+  </body>
+</html>

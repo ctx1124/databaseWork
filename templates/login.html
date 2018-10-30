@@ -6,6 +6,7 @@
         <style>
             .text-h1{
                 font-family: lobster;
+                color: #fff;
             }
             .location{
                 padding-bottom: 20px;
@@ -14,13 +15,14 @@
             b{
                 margin-top: 400px;
             }
+            
         </style>
        
 </head>
-<body class="text-center " style="background-color:lightsteelblue">
+<body class="text-center " style="background-color:#333">
     <div class="container-fluid col-sm-4 b">
     <div class="location">   
-    <h1 class = "text-primary text-h1 text-center">MYSQL-CLIENT</h1> 
+    <h1 class = " text-h1 text-center" style="color:#fff">MYSQL-WEB-CLIENT</h1> 
     <form class="form-signin">
         <div class="location">
         <input type = "text"name="localhost" placeholder="input hostname" required=""class="form-control">
@@ -28,8 +30,10 @@
         <input type = "password"name="password" placeholder="input password"  required=""class="form-control">
         <input type = "text" name="database" placeholder="input database"required="" class="form-control">
         </div>
-        <button class ="btn btn-primary btn-block" id = "buttton-url" >connect to database</button>
-    </div> 
+        <button class ="btn btn-secondary btn-block" id = "buttton-url" >connect to database</button>
+        </form>
+    </div>
+    <p style="color:white">{{connect_err}}</p>>
     </div>
 </body>
 <html>    
