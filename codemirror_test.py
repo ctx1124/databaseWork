@@ -30,7 +30,7 @@ bootstrap.init_app(app)
 class MyForm(FlaskForm):
     source_code = CodeMirrorField(language='sql',
                                 config={'lineNumbers' : 'true'})
-    submit = SubmitField('Submit')
+    submit = SubmitField('执行')
 
 @app.route('/',methods={'GET','POST'})
 def index():
@@ -50,7 +50,7 @@ def data():
             cursor = db.cursor()
             cursor.execute(text)
             db.commit()
-            print(cursor.execute(text))
+            #print(cursor.execute(text))
             data = cursor.fetchall()
             if(cursor.description):
                 name=cursor.description
@@ -62,7 +62,7 @@ def data():
         except:
             db.rollback()
             error= traceback.format_exc()
-            print(text)
+            print(error)
             #traceback.print_exc()
             return render_template('connect.html', form=form,name=name,data=data,error=error)
 

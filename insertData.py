@@ -35,13 +35,13 @@ class MyPyMysql:
         self.cur = self.conn.cursor()
         
         # 定义sql语句,插入数据id,name,gender,email
-        sql = "insert into EMPLOYEE(FIRST_NAME,LAST_NAME,AGE,SEX,INCOME) values (%s,%s,%s,%s,%s)"
+        sql = "insert into Persons(PersonID,Lastname,Firstname,Address,City) values (%s,%s,%s,%s,%s)"
 
         # 定义总插入行数为一个空列表
         data_list = []
         for i in range(nmin, nmax):
             # 添加所有任务到总的任务列表
-            result = ('MAC' + str(i), 'Mohan'+str(i),20, 'M' , 2000)
+            result = (1000+i, 'Mohan'+str(i), 'MAC'+str(i), 'TH'+str(i) , 'GZ'+str(i))
             data_list.append(result)
         #print (data_list)    
         # 执行多行插入，executemany(sql语句,数据(需一个元组类型))
