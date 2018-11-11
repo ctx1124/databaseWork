@@ -5,6 +5,7 @@
 import pymysql
 import gevent
 import time
+import random
 
 
 class MyPyMysql:
@@ -35,13 +36,14 @@ class MyPyMysql:
         self.cur = self.conn.cursor()
         
         # 定义sql语句,插入数据id,name,gender,email
-        sql = "insert into Persons(PersonID,Lastname,Firstname,Address,City) values (%s,%s,%s,%s,%s)"
+        sql = "insert into test(age,money) values (%s,%s)"
 
         # 定义总插入行数为一个空列表
         data_list = []
         for i in range(nmin, nmax):
             # 添加所有任务到总的任务列表
-            result = (1000+i, 'Mohan'+str(i), 'MAC'+str(i), 'TH'+str(i) , 'GZ'+str(i))
+            a=random.randint(1,200)
+            result = (a,a*300)
             data_list.append(result)
         #print (data_list)    
         # 执行多行插入，executemany(sql语句,数据(需一个元组类型))
@@ -57,7 +59,7 @@ class MyPyMysql:
         # g_l 任务列表
         # 定义了异步的函数: 这里用到了一个gevent.spawn方法
         max_line = 10000  # 定义每次最大插入行数(max_line=10000,即一次插入10000行)
-        g_l = [gevent.spawn(self.run, i, i+max_line) for i in range(1, 100001, max_line)]
+        g_l = [gevent.spawn(self.run, i, i+max_line) for i in range(1, 10001, max_line)]
 
         # gevent.joinall 等待所以操作都执行完毕
         gevent.joinall(g_l)

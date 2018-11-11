@@ -79,6 +79,7 @@ def connect():
         print(localhost)
         try:
             db = pymysql.connect(localhost,user,password,database)
+            print('success')
             
         except:
             connect_err=traceback.format_exc()

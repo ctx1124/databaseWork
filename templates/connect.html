@@ -5,7 +5,7 @@
     <style>
     /* Table Head */
     #table-7 thead th {
-    background-color: rgb(81, 130, 187);
+    background-color:#333;
     color: #fff;
     border-bottom-width: 0;
     }
@@ -18,7 +18,8 @@
     #table-7 tr, #table-7 th {
     border-width: 1px;
     border-style: solid;
-    border-color: rgb(81, 130, 187);
+    border-color:white;
+    color:white;
     }
 
     /* Padding and font style */
@@ -27,6 +28,7 @@
     font-size: 12px;
     font-family: Verdana;
     font-weight: bold;
+    color:white;
     }
     #left{
       float: left;
@@ -58,6 +60,17 @@
     
 </head>
   <body id="bcakcolor">
+   
+      <nav class="navbar navbar-dark ",style="width:960px,background-color:#333">
+        <a href="{{url_for('index')}}" class="navbar-brand">MYSQL_WEB_CLIENT</a>
+        <ul class="navbar-nav">
+          <li><a href="{{url_for('index')}}" class="nav-link">about</a></li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li><a href="{{url_for('connect')}}" class="nav-link">connect</a></li>
+          </ul>
+      </nav>
+    
     <div id="left">
     <p style="color: white">输入查询语句</p>
     <form method="POST" >
@@ -72,13 +85,14 @@
       var editor2 = CodeMirror.fromTextArea(document.getElementById("code_textarea"),{
          lineNumbers: true,
          mode:"shell",
-         theme:"dracula"});
+         theme:"dracula",
+         readOnly:true});
     </script>
     </div>   
     <div id="both"></div>
     <div>
       <h2 style="color: #fff">查询结果</h2>
-    <div style="background-color:azure">
+    <div >
     <table id ="table-7">
       <thead>
         
