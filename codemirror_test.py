@@ -6,10 +6,11 @@ from flask_codemirror import CodeMirror
 from flask import Flask,render_template
 from flask import request,redirect, url_for,flash
 import pymysql
-from flask import current_app
+from flask import current_app,g
 import traceback
 import sys
 from flask_bootstrap import Bootstrap
+from datetime import datetime
 
 SECRET_KEY = 'secret!'
 # mandatory
@@ -41,9 +42,10 @@ def data():
     form = MyForm()
     name = {}
     data = {}
-    error = "connected success"
+    error = current_app.error
     if request.method=='POST':
         text = form.source_code.data
+        form.source_code.data=""
         print(text)
         db = current_app.db
         try:
@@ -57,11 +59,14 @@ def data():
             #flash("database connect sucess")
             #print(cursor.messages)
             #print(data)
-            error="命令成功执行"
+            now = datetime.now()
+            error=error+str(now)+"\n"+text+"\n命令成功执行"+"\n"
+            current_app.error=error
             return render_template('connect.html', form=form,name=name,data=data,error=error)
         except:
             db.rollback()
-            error= traceback.format_exc()
+            now = datetime.now()
+            error= error+str(now)+"\n"+text+"\n"+traceback.format_exc()+"\n"
             print(error)
             #traceback.print_exc()
             return render_template('connect.html', form=form,name=name,data=data,error=error)
@@ -89,6 +94,7 @@ def connect():
             return render_template('login.html',connect_err=connect_err)
         flash('database connected')
         current_app.db = db
+        current_app.error="connected success\n"
         return redirect(url_for('data'))
         
     return render_template('login.html',connect_err=connect_err)    
